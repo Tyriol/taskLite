@@ -9,15 +9,21 @@ function App() {
 
   const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState<Todos[]>([]);
+  const [error, setError] = useState('');
 
   // capture input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo(e.target.value);
+    setError('');
   };
 
   // add todo to todos array
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
+    if (todo === '') {
+      setError('Please enter a todo');
+      return;
+    }
     const id = Date.now();
     setTodos([...todos, { id, todo }]);
     setTodo('');
@@ -46,6 +52,7 @@ function App() {
             onChange={handleChange}
           />
         </label>
+        <p className="error">{error}</p>
         <button className="todo-submit" type="submit">
           Add Todo
         </button>
