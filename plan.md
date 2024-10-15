@@ -9,5 +9,6 @@
   - [x] Test
 - [ ] Install Tailwind 🍃
 - [ ] Build Todo list using react and temporary storage
+- [ ] Deploy to Netlify
 - [ ] Install Express
 - [ ] Link to MongoDB
