@@ -12,7 +12,7 @@
 }
 
 .todo-input {
-  color: #2E5077;
+  color: #2e5077;
   padding-left: 0.5em;
 }
 
@@ -38,6 +38,6 @@
 }
 
 .todo-item:hover {
-  background-color: #2E5077;
-  border-color: #FFA630;
+  background-color: #2e5077;
+  border-color: #ffa630;
 }
