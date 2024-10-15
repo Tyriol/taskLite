@@ -1,14 +1,13 @@
 ## High Level Plan
 
 - [x] Set up Repo
-- [ ] Install Husky
-  - [ ] Install Prettier
-  - [ ] Install ESlint
-  - [ ] Add as pre-commit hooks
-  - [ ] Test
-- [ ] Update Plan
-- [ ] Install Tailwind
+- [x] Update Plan
+- [x] Install Husky 🐕‍🦺
+  - [x] Install Prettier
+  - [x] Install ESlint
+  - [x] Add as pre-commit hooks
+  - [x] Test
+- [ ] Install Tailwind 🍃
 - [ ] Build Todo list using react and temporary storage
 - [ ] Install Express
 - [ ] Link to MongoDB
-- [ ]
