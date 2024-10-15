@@ -11,6 +11,11 @@
   flex-direction: column;
 }
 
+.todo-input {
+  color: #2E5077;
+  padding-left: 0.5em;
+}
+
 .todo-submit {
   margin-top: 1em;
 }
@@ -18,4 +23,21 @@
 .list-todos {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+  border: 1px solid #e2e8f0;
+  transition: all 0.5s;
+}
+
+.todo-item:hover {
+  background-color: #2E5077;
+  border-color: #FFA630;
 }
