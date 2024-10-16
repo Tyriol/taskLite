@@ -10,9 +10,9 @@
 - [x] Install Tailwind 🍃
   - [ ] Figure out the import error
 - [ ] Build Todo list using react and temporary storage
-- [ ] Add form validation
+- [x] Add form validation
 - [ ] Add ability to edit todo
 - [ ] Add ability to mark todo as done
-- [ ] Deploy to Netlify
+- [x] Deploy to Netlify
 - [ ] Install Express
 - [ ] Link to MongoDB
