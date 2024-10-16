@@ -49,3 +49,9 @@
 .todo-item button {
   justify-self: center;
 }
+
+@media (min-width: 768px) {
+  #root {
+    min-width: 500px;
+  }
+}
