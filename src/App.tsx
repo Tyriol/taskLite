@@ -75,33 +75,42 @@ function App() {
           What makes this different?
         </button>
       ) : (
-        <button onClick={() => setIsExplanationOpen(false)}>
-          Ever feel overwhelmed by a never ending todo list that you keep adding
-          to, but never seem able to complete? That's why I created this todo
-          list, that only allows you to add your 3 most important tasks for the
-          day. You can only add more once you've ticked something off, so the
-          most you'll ever have is 3! That's not too scary right?
+        <button
+          className="about-app"
+          onClick={() => setIsExplanationOpen(false)}
+        >
+          <div>
+            Ever feel overwhelmed by a never ending todo list that you keep
+            adding to, but never seem able to complete?
+          </div>
+          <div>
+            That's why I created this todo list, that only allows you to add
+            your 3 most important tasks for the day. You can only add more once
+            you've ticked something off, so the most you'll ever have is 3!
+          </div>
+          <div>That's not too scary right?</div>
         </button>
       )}
-      <form className="card" onSubmit={handleSubmit}>
-        <label className="todo-label">
-          What are your most important todo's today?:
-          <input
-            className="todo-input"
-            type="text"
-            value={todo}
-            onChange={handleChange}
-          />
-        </label>
-        <p className="error">{error}</p>
-        {todos.length === 3 ? (
-          <div className="todo-submit">You've got enough to get on with</div>
-        ) : (
+      {todos.length === 3 ? (
+        <div className="todo-submit">You've got enough to get on with</div>
+      ) : (
+        <form className="card" onSubmit={handleSubmit}>
+          <label className="todo-label">
+            What are your most important todo's today?:
+            <input
+              className="todo-input"
+              type="text"
+              value={todo}
+              onChange={handleChange}
+            />
+          </label>
+          <p className="error">{error}</p>
+
           <button className="todo-submit" type="submit">
             Add Todo
           </button>
-        )}
-      </form>
+        </form>
+      )}
       <div>
         <ul className="list-todos">
           {todos.map(td => {
