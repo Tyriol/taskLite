@@ -7,6 +7,7 @@ function App() {
     todo: string;
   }
   // state
+  const [isExplanationOpen, setIsExplanationOpen] = useState(false);
   const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState<Todos[]>([]);
   const [editTodo, setEditTodo] = useState(false);
@@ -69,10 +70,22 @@ function App() {
   return (
     <div className="wrapper">
       <h1>What ToDo</h1>
+      {!isExplanationOpen ? (
+        <button onClick={() => setIsExplanationOpen(true)}>
+          What makes this different?
+        </button>
+      ) : (
+        <button onClick={() => setIsExplanationOpen(false)}>
+          Ever feel overwhelmed by a never ending todo list that you keep adding
+          to, but never seem able to complete? That's why I created this todo
+          list, that only allows you to add your 3 most important tasks for the
+          day. You can only add more once you've ticked something off, so the
+          most you'll ever have is 3! That's not too scary right?
+        </button>
+      )}
       <form className="card" onSubmit={handleSubmit}>
-        <label>
-          What is on your todo list?:
-          <br />
+        <label className="todo-label">
+          What are your most important todo's today?:
           <input
             className="todo-input"
             type="text"
