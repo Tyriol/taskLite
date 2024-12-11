@@ -104,14 +104,15 @@ function App() {
 
   return (
     <div className="wrapper">
-      <h1>What ToDo</h1>
+      <h1>TaskLite</h1>
+      <h2>To The Point Todo's</h2>
       <ModalDialog />
       {todos.length === 3 ? (
         <div className="todo-submit">You've got enough to get on with</div>
       ) : (
         <form className="card" onSubmit={handleSubmit}>
           <label className="todo-label">
-            What are your most important todo's today?:
+            What are your most important tasks today?:
             <input
               className="todo-input"
               type="text"
