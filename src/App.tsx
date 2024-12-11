@@ -8,8 +8,9 @@ function App() {
   }
   // state
   const [todo, setTodo] = useState('');
+  const [editTodo, setEditTodo] = useState('');
   const [todos, setTodos] = useState<Todos[]>([]);
-  const [editTodo, setEditTodo] = useState(false);
+  const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
 
   // modal component
@@ -50,8 +51,12 @@ function App() {
 
   // capture input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodo(e.target.value);
-    setError('');
+    if (editingId) {
+      setEditTodo(e.target.value);
+    } else {
+      setTodo(e.target.value);
+      setError('');
+    }
   };
 
   // add todo to todos array
@@ -68,39 +73,35 @@ function App() {
 
   // delete todo from list
   const handleDelete = (id: number) => {
-    const todoToRemove = todos.findIndex(td => td.id === id);
-    console.log(todoToRemove);
+    const todoToRemoveIndex = todos.findIndex(td => td.id === id);
     setTodos([
-      ...todos.slice(0, todoToRemove),
-      ...todos.slice(todoToRemove + 1),
+      ...todos.slice(0, todoToRemoveIndex),
+      ...todos.slice(todoToRemoveIndex + 1),
     ]);
   };
 
   // handle edit initial open
-  const openEdit = () => {
-    setEditTodo(true);
+  const openEdit = (id: number) => {
+    setEditingId(id);
   };
 
   // To handle a todo item being clicked
   const handleEdit = (id: number) => {
-    // const todoToEditIndex = todos.findIndex(td => td.id === id);
-    const todoToEdit = todos.find(td => td.id === id);
-
-    console.log(todoToEdit);
-    setEditTodo(false);
-
-    // if (todoToEdit) {
-    //   setEditTodo(true);
-
-    //   // create an input field
-    //   // update the todo item with the new value
-    //   // remove the input field and display the updated todo item
-    // }
+    if (!editTodo) {
+      setEditingId(null);
+      return;
+    }
+    const todoToEditIndex = todos.findIndex(td => td.id === id);
+    if (todoToEditIndex === -1) return;
+    const updatedTodos = [...todos];
+    updatedTodos[todoToEditIndex] = {
+      id: id,
+      todo: editTodo,
+    };
+    setTodos(updatedTodos);
+    setEditTodo('');
+    setEditingId(null);
   };
-  // select the todo item being updated
-  // create an input field to update the todo item
-  // update the todo item with the new value
-  // remove the input field and display the updated todo item
 
   return (
     <div className="wrapper">
@@ -132,12 +133,12 @@ function App() {
           {todos.map(td => {
             return (
               <li className="todo-item" key={td.id}>
-                {editTodo ? (
+                {editingId === td.id ? (
                   <>
                     <input
                       className="todo-input"
                       type="text"
-                      value={todo}
+                      value={editTodo}
                       onChange={handleChange}
                     />
                     <button type="button" onClick={() => handleEdit(td.id)}>
@@ -147,7 +148,7 @@ function App() {
                 ) : (
                   <>
                     {td.todo}
-                    <button type="button" onClick={() => openEdit()}>
+                    <button type="button" onClick={() => openEdit(td.id)}>
                       <svg
                         width="1rem"
                         height="1rem"
