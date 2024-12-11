@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 
 function App() {
@@ -7,11 +7,46 @@ function App() {
     todo: string;
   }
   // state
-  const [isExplanationOpen, setIsExplanationOpen] = useState(false);
   const [todo, setTodo] = useState('');
   const [todos, setTodos] = useState<Todos[]>([]);
   const [editTodo, setEditTodo] = useState(false);
   const [error, setError] = useState('');
+
+  // modal component
+  const ModalDialog = () => {
+    const dialogRef = useRef<HTMLDialogElement>(null);
+
+    const openModal = () => {
+      dialogRef.current?.showModal();
+    };
+
+    const closeModal = () => {
+      dialogRef.current?.close();
+    };
+
+    return (
+      <div>
+        <button onClick={openModal}>About the App</button>
+        <dialog ref={dialogRef}>
+          <h2>About TaskLite</h2>
+          <div>
+            <p>
+              Ever feel overwhelmed by a never ending todo list that you keep
+              adding to, but never seem able to complete?
+            </p>
+            <p>
+              That's why I created this todo list, that only allows you to add
+              your 3 most important tasks for the day. You can only add more
+              once you've ticked something off, so the most you'll ever have is
+              3!
+            </p>
+            <p>Get out there and get it done!</p>
+          </div>
+          <button onClick={closeModal}>Close</button>
+        </dialog>
+      </div>
+    );
+  };
 
   // capture input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,27 +105,7 @@ function App() {
   return (
     <div className="wrapper">
       <h1>What ToDo</h1>
-      {!isExplanationOpen ? (
-        <button onClick={() => setIsExplanationOpen(true)}>
-          What makes this different?
-        </button>
-      ) : (
-        <button
-          className="about-app"
-          onClick={() => setIsExplanationOpen(false)}
-        >
-          <div>
-            Ever feel overwhelmed by a never ending todo list that you keep
-            adding to, but never seem able to complete?
-          </div>
-          <div>
-            That's why I created this todo list, that only allows you to add
-            your 3 most important tasks for the day. You can only add more once
-            you've ticked something off, so the most you'll ever have is 3!
-          </div>
-          <div>That's not too scary right?</div>
-        </button>
-      )}
+      <ModalDialog />
       {todos.length === 3 ? (
         <div className="todo-submit">You've got enough to get on with</div>
       ) : (
