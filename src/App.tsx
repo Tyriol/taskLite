@@ -109,7 +109,7 @@ function App() {
       <h2>To The Point Todo's</h2>
       <ModalDialog />
       {todos.length === 3 ? (
-        <div className="todo-submit">You've got enough to get on with</div>
+        <div className="todo-submit">You've got enough to get on with</div> // TODO: Update this text
       ) : (
         <form className="card" onSubmit={handleSubmit}>
           <label className="todo-label">
@@ -139,6 +139,7 @@ function App() {
                       className="todo-input"
                       type="text"
                       value={editTodo}
+                      // TODO: Show previous value when editing
                       onChange={handleChange}
                     />
                     <button type="button" onClick={() => handleEdit(td.id)}>
