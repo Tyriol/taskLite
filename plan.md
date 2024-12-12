@@ -9,10 +9,12 @@
   - [x] Test
 - [x] Install Tailwind 🍃
   - [ ] Figure out the import error
-- [ ] Build Todo list using react and temporary storage
+- [x] Build Todo list using react and temporary storage
 - [x] Add form validation
-- [ ] Add ability to edit todo
+- [x] Add ability to edit todo
 - [ ] Add ability to mark todo as done
 - [x] Deploy to Netlify
-- [ ] Install Express
-- [ ] Link to MongoDB
+
+TODO: Uninstall Postcss
+TODO: Uninstall Tailwind
+TODO: Add in-memory storage, pref nosql
