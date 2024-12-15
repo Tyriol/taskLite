@@ -19,6 +19,7 @@ dialog::backdrop {
 
 .wrapper {
   max-width: 436px;
+  margin: 0 auto;
 }
 
 .about-app {
