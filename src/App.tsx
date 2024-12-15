@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+
+import { todoDocuments } from './database/lokidb';
 import './App.css';
 
 function App() {
@@ -67,7 +69,10 @@ function App() {
       return;
     }
     const id = Date.now();
-    setTodos([...todos, { id, todo }]);
+    todoDocuments.insert({ id, todo });
+    const allDocuments = todoDocuments.find();
+    console.log(allDocuments);
+
     setTodo('');
   };
 
