@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { todoDocuments } from './database/lokidb';
 import './App.css';
@@ -14,6 +14,15 @@ function App() {
   const [todos, setTodos] = useState<Todos[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
+
+  // console.log(todoDocuments);
+
+  useEffect(() => {
+    const allDocuments = todoDocuments.find();
+    console.log(allDocuments);
+
+    setTodos(allDocuments);
+  }, []);
 
   // modal component
   const ModalDialog = () => {
@@ -69,14 +78,15 @@ function App() {
       return;
     }
     const id = Date.now();
-    todoDocuments.insert({ id, todo });
+    const newTodo = todoDocuments.insert({ id, todo });
+    console.log('New Todo', newTodo);
     const allDocuments = todoDocuments.find();
-    console.log(allDocuments);
-
+    setTodos(allDocuments);
     setTodo('');
   };
 
   // delete todo from list
+  // TODO: Delete item from local storage
   const handleDelete = (id: number) => {
     const todoToRemoveIndex = todos.findIndex(td => td.id === id);
     setTodos([
@@ -91,6 +101,7 @@ function App() {
   };
 
   // To handle a todo item being clicked
+  // TODO: Update local storage item
   const handleEdit = (id: number) => {
     if (!editTodo) {
       setEditingId(null);
@@ -164,7 +175,7 @@ function App() {
                         xmlnsXlink="http://www.w3.org/1999/xlink"
                         fill="#000"
                       >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                         <g
                           id="SVGRepo_tracerCarrier"
                           strokeLinecap="round"
