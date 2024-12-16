@@ -99,12 +99,16 @@ function App() {
     setEditingId(id);
   };
 
-  // To handle a todo item being clicked
-  // TODO: Update local storage item
+  // edit a todo
   const handleEdit = (id: number) => {
     if (!editTodo) {
       setEditingId(null);
       return;
+    }
+    const todoToEdit = todoDocuments.findOne({ id });
+    if (todoToEdit) {
+      todoToEdit.todo = editTodo;
+      todoDocuments.update(todoToEdit);
     }
     const todoToEditIndex = todos.findIndex(td => td.id === id);
     if (todoToEditIndex === -1) return;
