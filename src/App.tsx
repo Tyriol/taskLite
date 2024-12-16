@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import { todoDocuments } from './database/lokidb';
 import './App.css';
-
+// TODO: Add ability to mark as done without deleting
 function App() {
   interface Todos {
     id: number;
@@ -88,6 +88,10 @@ function App() {
   // delete todo from list
   // TODO: Delete item from local storage
   const handleDelete = (id: number) => {
+    const todoToRemove = todoDocuments.findOne({ id });
+    if (todoToRemove) {
+      todoDocuments.remove(todoToRemove);
+    }
     const todoToRemoveIndex = todos.findIndex(td => td.id === id);
     setTodos([
       ...todos.slice(0, todoToRemoveIndex),
