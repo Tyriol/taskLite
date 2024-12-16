@@ -15,12 +15,8 @@ function App() {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
 
-  // console.log(todoDocuments);
-
   useEffect(() => {
     const allDocuments = todoDocuments.find();
-    console.log(allDocuments);
-
     setTodos(allDocuments);
   }, []);
 
@@ -78,15 +74,13 @@ function App() {
       return;
     }
     const id = Date.now();
-    const newTodo = todoDocuments.insert({ id, todo });
-    console.log('New Todo', newTodo);
+    todoDocuments.insert({ id, todo });
     const allDocuments = todoDocuments.find();
     setTodos(allDocuments);
     setTodo('');
   };
 
   // delete todo from list
-  // TODO: Delete item from local storage
   const handleDelete = (id: number) => {
     const todoToRemove = todoDocuments.findOne({ id });
     if (todoToRemove) {
