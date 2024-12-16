@@ -3,6 +3,7 @@ import Loki from 'lokijs';
 interface Todo {
   id: number;
   todo: string;
+  done: boolean;
 }
 
 let todoDocuments: Collection<Todo>;
@@ -11,7 +12,7 @@ function databaseInitialize(): void {
   const todos = db.getCollection<Todo>('todos');
   if (todos === null) {
     db.addCollection<Todo>('todos', {
-      indices: ['id'],
+      indices: ['id'], // TODO: indexed the collection for faster retrieval. Possibly overkill, so test and remove if not needed
     });
     console.log('New Collection Created');
   } else {

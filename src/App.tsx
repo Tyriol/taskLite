@@ -7,6 +7,7 @@ function App() {
   interface Todos {
     id: number;
     todo: string;
+    done: boolean;
   }
   // state
   const [todo, setTodo] = useState('');
@@ -74,7 +75,7 @@ function App() {
       return;
     }
     const id = Date.now();
-    todoDocuments.insert({ id, todo });
+    todoDocuments.insert({ id, todo, done: false });
     const allDocuments = todoDocuments.find();
     setTodos(allDocuments);
     setTodo('');
@@ -111,6 +112,7 @@ function App() {
     updatedTodos[todoToEditIndex] = {
       id: id,
       todo: editTodo,
+      done: updatedTodos[todoToEditIndex].done,
     };
     setTodos(updatedTodos);
     setEditTodo('');
