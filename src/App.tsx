@@ -148,97 +148,103 @@ function App() {
           </button>
         </form>
       )}
-      <div>
-        <ul className="list-todos">
-          {todos.map(td => {
-            return (
-              <li className="todo-item" key={td.id}>
-                {editingId === td.id ? (
-                  <>
-                    <input
-                      className="todo-input"
-                      type="text"
-                      value={editTodo}
-                      // TODO: Show previous value when editing
-                      onChange={handleChange}
-                    />
-                    <button type="button" onClick={() => handleEdit(td.id)}>
-                      Update
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    {td.todo}
-                    <button type="button" onClick={() => openEdit(td.id)}>
-                      <svg
-                        width="1rem"
-                        height="1rem"
-                        viewBox="0 0 21.00 21.00"
-                        version="1.1"
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlnsXlink="http://www.w3.org/1999/xlink"
-                        fill="#000"
-                      >
-                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                        <g
-                          id="SVGRepo_tracerCarrier"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        ></g>
-                        <g id="SVGRepo_iconCarrier">
+      {!todos ? (
+        <div>
+          <p>Loading</p>
+        </div>
+      ) : (
+        <div>
+          <ul className="list-todos">
+            {todos.map(td => {
+              return (
+                <li className="todo-item" key={td.id}>
+                  {editingId === td.id ? (
+                    <>
+                      <input
+                        className="todo-input"
+                        type="text"
+                        value={editTodo}
+                        // TODO: Show previous value when editing
+                        onChange={handleChange}
+                      />
+                      <button type="button" onClick={() => handleEdit(td.id)}>
+                        Update
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {td.todo}
+                      <button type="button" onClick={() => openEdit(td.id)}>
+                        <svg
+                          width="1rem"
+                          height="1rem"
+                          viewBox="0 0 21.00 21.00"
+                          version="1.1"
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlnsXlink="http://www.w3.org/1999/xlink"
+                          fill="#000"
+                        >
+                          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                           <g
-                            id="Page-1"
-                            strokeWidth="0.00021000000000000004"
-                            fill="none"
-                            fillRule="evenodd"
-                          >
-                            {' '}
+                            id="SVGRepo_tracerCarrier"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          ></g>
+                          <g id="SVGRepo_iconCarrier">
                             <g
-                              id="Dribbble-Light-Preview"
-                              transform="translate(-99.000000, -400.000000)"
-                              fill="#fff"
+                              id="Page-1"
+                              strokeWidth="0.00021000000000000004"
+                              fill="none"
+                              fillRule="evenodd"
                             >
+                              {' '}
                               <g
-                                id="icons"
-                                transform="translate(56.000000, 160.000000)"
+                                id="Dribbble-Light-Preview"
+                                transform="translate(-99.000000, -400.000000)"
+                                fill="#fff"
                               >
-                                <path
-                                  d="M61.9,258.010643 L45.1,258.010643 L45.1,242.095788 L53.5,242.095788 L53.5,240.106431 L43,240.106431 L43,260 L64,260 L64,250.053215 L61.9,250.053215 L61.9,258.010643 Z M49.3,249.949769 L59.63095,240 L64,244.114985 L53.3341,254.031929 L49.3,254.031929 L49.3,249.949769 Z"
-                                  id="edit-[#1479]"
-                                ></path>
+                                <g
+                                  id="icons"
+                                  transform="translate(56.000000, 160.000000)"
+                                >
+                                  <path
+                                    d="M61.9,258.010643 L45.1,258.010643 L45.1,242.095788 L53.5,242.095788 L53.5,240.106431 L43,240.106431 L43,260 L64,260 L64,250.053215 L61.9,250.053215 L61.9,258.010643 Z M49.3,249.949769 L59.63095,240 L64,244.114985 L53.3341,254.031929 L49.3,254.031929 L49.3,249.949769 Z"
+                                    id="edit-[#1479]"
+                                  ></path>
+                                </g>
                               </g>
                             </g>
                           </g>
-                        </g>
-                      </svg>
-                    </button>
-                    <button type="button" onClick={() => handleDelete(td.id)}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlnsXlink="http://www.w3.org/1999/xlink"
-                        fill="#fff"
-                        version="1.1"
-                        id="Capa_1"
-                        width="1em"
-                        height="1em"
-                        viewBox="0 0 485 485"
-                        xmlSpace="preserve"
-                      >
-                        <g>
+                        </svg>
+                      </button>
+                      <button type="button" onClick={() => handleDelete(td.id)}>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          xmlnsXlink="http://www.w3.org/1999/xlink"
+                          fill="#fff"
+                          version="1.1"
+                          id="Capa_1"
+                          width="1em"
+                          height="1em"
+                          viewBox="0 0 485 485"
+                          xmlSpace="preserve"
+                        >
                           <g>
-                            <rect x="67.224" width="350.535" height="71.81" />
-                            <path d="M417.776,92.829H67.237V485h350.537V92.829H417.776z M165.402,431.447h-28.362V146.383h28.362V431.447z M256.689,431.447    h-28.363V146.383h28.363V431.447z M347.97,431.447h-28.361V146.383h28.361V431.447z" />
+                            <g>
+                              <rect x="67.224" width="350.535" height="71.81" />
+                              <path d="M417.776,92.829H67.237V485h350.537V92.829H417.776z M165.402,431.447h-28.362V146.383h28.362V431.447z M256.689,431.447    h-28.363V146.383h28.363V431.447z M347.97,431.447h-28.361V146.383h28.361V431.447z" />
+                            </g>
                           </g>
-                        </g>
-                      </svg>
-                    </button>
-                  </>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+                        </svg>
+                      </button>
+                    </>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
