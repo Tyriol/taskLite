@@ -1,12 +1,13 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import { todoDocuments } from './database/lokidb';
 import './App.css';
-
+// TODO: Add ability to mark as done without deleting
 function App() {
   interface Todos {
     id: number;
     todo: string;
+    done: boolean;
   }
   // state
   const [todo, setTodo] = useState('');
@@ -14,6 +15,11 @@ function App() {
   const [todos, setTodos] = useState<Todos[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    const allDocuments = todoDocuments.find();
+    setTodos(allDocuments);
+  }, []);
 
   // modal component
   const ModalDialog = () => {
@@ -69,15 +75,18 @@ function App() {
       return;
     }
     const id = Date.now();
-    todoDocuments.insert({ id, todo });
+    todoDocuments.insert({ id, todo, done: false });
     const allDocuments = todoDocuments.find();
-    console.log(allDocuments);
-
+    setTodos(allDocuments);
     setTodo('');
   };
 
   // delete todo from list
   const handleDelete = (id: number) => {
+    const todoToRemove = todoDocuments.findOne({ id });
+    if (todoToRemove) {
+      todoDocuments.remove(todoToRemove);
+    }
     const todoToRemoveIndex = todos.findIndex(td => td.id === id);
     setTodos([
       ...todos.slice(0, todoToRemoveIndex),
@@ -90,11 +99,16 @@ function App() {
     setEditingId(id);
   };
 
-  // To handle a todo item being clicked
+  // edit a todo
   const handleEdit = (id: number) => {
     if (!editTodo) {
       setEditingId(null);
       return;
+    }
+    const todoToEdit = todoDocuments.findOne({ id });
+    if (todoToEdit) {
+      todoToEdit.todo = editTodo;
+      todoDocuments.update(todoToEdit);
     }
     const todoToEditIndex = todos.findIndex(td => td.id === id);
     if (todoToEditIndex === -1) return;
@@ -102,6 +116,7 @@ function App() {
     updatedTodos[todoToEditIndex] = {
       id: id,
       todo: editTodo,
+      done: updatedTodos[todoToEditIndex].done,
     };
     setTodos(updatedTodos);
     setEditTodo('');
@@ -164,7 +179,7 @@ function App() {
                         xmlnsXlink="http://www.w3.org/1999/xlink"
                         fill="#000"
                       >
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                        <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                         <g
                           id="SVGRepo_tracerCarrier"
                           strokeLinecap="round"
