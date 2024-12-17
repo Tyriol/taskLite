@@ -25,7 +25,7 @@ const db = new Loki('taskLite.db', {
   autoload: true,
   autoloadCallback: databaseInitialize,
   autosave: true,
-  autosaveInterval: 4000,
+  autosaveInterval: 2000,
   persistenceMethod: 'localStorage',
   serializationMethod: 'pretty',
 });
