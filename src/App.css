@@ -80,6 +80,32 @@ dialog::backdrop {
   justify-self: center;
 }
 
+.fade-out {
+  animation: fadeOut 1s ease-out 1s forwards;
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @media (min-width: 768px) {
   #root {
     min-width: 500px;

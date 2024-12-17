@@ -136,7 +136,9 @@ function App() {
       <h2>To The Point Todo's</h2>
       <ModalDialog />
       {todos.length === 3 ? (
-        <div className="todo-submit">You've got enough to get on with</div> // TODO: Update this text
+        <div className="todo-submit">
+          I'd say that's enough for now...wouldn't you?
+        </div> // TODO: Update this text
       ) : (
         <form className="card" onSubmit={handleSubmit}>
           <label className="todo-label">
@@ -158,9 +160,9 @@ function App() {
       )}
       <div>
         {isLoading ? (
-          <p>Hi there, Welcome to TaskLite!</p>
+          <p className="fade-out">Hi there, Welcome to TaskLite!</p>
         ) : (
-          <ul className="list-todos">
+          <ul className="list-todos fade-in">
             {todos.map(td => {
               return (
                 <li className="todo-item" key={td.id}>
