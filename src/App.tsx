@@ -17,8 +17,13 @@ function App() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const allDocuments = todoDocuments.find();
-    setTodos(allDocuments);
+    const timer = setTimeout(() => {
+      const allDocuments = todoDocuments.find();
+      setTodos(allDocuments);
+    }, 1000); // Delay by 1 second to allow db to initialise
+    // TODO: Add loading state
+    // TODO: Add Error Handling
+    return () => clearTimeout(timer);
   }, []);
 
   // modal component
