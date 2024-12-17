@@ -15,13 +15,14 @@ function App() {
   const [todos, setTodos] = useState<Todos[]>([]);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       const allDocuments = todoDocuments.find();
       setTodos(allDocuments);
-    }, 1000); // Delay by 1 second to allow db to initialise
-    // TODO: Add loading state
+      setIsLoading(false);
+    }, 2000); // Delay by 2 second to allow db to initialise and give loading message a chance
     // TODO: Add Error Handling
     return () => clearTimeout(timer);
   }, []);
@@ -155,12 +156,10 @@ function App() {
           </button>
         </form>
       )}
-      {!todos ? (
-        <div>
-          <p>Loading</p>
-        </div>
-      ) : (
-        <div>
+      <div>
+        {isLoading ? (
+          <p>Hi there, Welcome to TaskLite!</p>
+        ) : (
           <ul className="list-todos">
             {todos.map(td => {
               return (
@@ -252,10 +251,12 @@ function App() {
               );
             })}
           </ul>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
 
 export default App;
+
+// TODO: Split into components
