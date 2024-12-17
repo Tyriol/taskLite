@@ -100,8 +100,9 @@ function App() {
   };
 
   // handle edit initial open
-  const openEdit = (id: number) => {
+  const openEdit = (id: number, todo: string) => {
     setEditingId(id);
+    setEditTodo(todo);
   };
 
   // edit a todo
@@ -138,12 +139,13 @@ function App() {
       ) : (
         <form className="card" onSubmit={handleSubmit}>
           <label className="todo-label">
-            What are your most important tasks today?:
+            What are your most important tasks today?
             <input
               className="todo-input"
               type="text"
               value={todo}
               onChange={handleChange}
+              name="todo-input"
             />
           </label>
           <p className="error">{error}</p>
@@ -169,7 +171,6 @@ function App() {
                         className="todo-input"
                         type="text"
                         value={editTodo}
-                        // TODO: Show previous value when editing
                         onChange={handleChange}
                       />
                       <button type="button" onClick={() => handleEdit(td.id)}>
@@ -179,7 +180,10 @@ function App() {
                   ) : (
                     <>
                       {td.todo}
-                      <button type="button" onClick={() => openEdit(td.id)}>
+                      <button
+                        type="button"
+                        onClick={() => openEdit(td.id, td.todo)}
+                      >
                         <svg
                           width="1rem"
                           height="1rem"
