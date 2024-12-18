@@ -4,6 +4,8 @@ import { todoDocuments } from './database/lokidb';
 import './App.css';
 // TODO: Add ability to mark as done without deleting
 // TODO: Keep count of completed todo's
+// Keep track of count in state
+// on page load count items in db with done state and set completedCount
 function App() {
   interface Todos {
     id: number;
@@ -14,6 +16,7 @@ function App() {
   const [todo, setTodo] = useState('');
   const [editTodo, setEditTodo] = useState('');
   const [todos, setTodos] = useState<Todos[]>([]);
+  const [completedCount, setCompletedCount] = useState(0);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -88,6 +91,21 @@ function App() {
     setTodo('');
   };
 
+  // mark todo as done
+  const handleComplete = (id: number) => {
+    const completedTodo = todoDocuments.findOne({ id });
+    if (completedTodo) {
+      completedTodo.done = true;
+      todoDocuments.update(completedTodo);
+      setCompletedCount(completedCount + 1);
+    }
+    const todoToRemoveIndex = todos.findIndex(td => td.id === id);
+    setTodos([
+      ...todos.slice(0, todoToRemoveIndex),
+      ...todos.slice(todoToRemoveIndex + 1),
+    ]);
+  };
+
   // delete todo from list
   const handleDelete = (id: number) => {
     const todoToRemove = todoDocuments.findOne({ id });
@@ -139,7 +157,7 @@ function App() {
       {todos.length === 3 ? (
         <div className="enough-todos-text">
           I'd say that's enough for now...wouldn't you?
-        </div> // TODO: Update this text
+        </div>
       ) : (
         <form className="card" onSubmit={handleSubmit}>
           <label className="todo-label">
@@ -164,7 +182,11 @@ function App() {
           <ul className="list-todos fade-in">
             {todos.map(td => {
               return (
-                <li className="todo-item" key={td.id}>
+                <li
+                  className="todo-item"
+                  key={td.id}
+                  onClick={() => handleComplete(td.id)}
+                >
                   {editingId === td.id ? (
                     <>
                       <input
@@ -254,6 +276,7 @@ function App() {
           </ul>
         )}
       </div>
+      <div>You've completed {completedCount} todos</div>
     </div>
   );
 }
