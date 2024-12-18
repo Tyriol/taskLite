@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import { todoDocuments } from './database/lokidb';
 import './App.css';
 // TODO: Add ability to mark as done without deleting
+// TODO: Keep count of completed todo's
 function App() {
   interface Todos {
     id: number;
@@ -73,7 +74,7 @@ function App() {
     }
   };
 
-  // add todo to todos array
+  // add todo to db and update todos state
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     if (!todo) {
@@ -136,7 +137,7 @@ function App() {
       <h2>To The Point Todo's</h2>
       <ModalDialog />
       {todos.length === 3 ? (
-        <div className="todo-submit">
+        <div className="enough-todos-text">
           I'd say that's enough for now...wouldn't you?
         </div> // TODO: Update this text
       ) : (
@@ -153,9 +154,7 @@ function App() {
           </label>
           <p className="error">{error}</p>
 
-          <button className="todo-submit" type="submit">
-            Add Todo
-          </button>
+          <button type="submit">Add Todo</button>
         </form>
       )}
       <div>
