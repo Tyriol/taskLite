@@ -2,16 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 
 import { todoDocuments } from './database/lokidb';
 import './App.css';
-// TODO: Add ability to mark as done without deleting
-// TODO: Keep count of completed todo's
-// Keep track of count in state
-// on page load count items in db with done state and set completedCount
+
 function App() {
   interface Todos {
     id: number;
     todo: string;
     done: boolean;
   }
+
   // state
   const [todo, setTodo] = useState('');
   const [editTodo, setEditTodo] = useState('');
@@ -23,8 +21,10 @@ function App() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const allDocuments = todoDocuments.find();
-      setTodos(allDocuments);
+      const todosTodo = todoDocuments.find({ done: false });
+      const doneTodos = todoDocuments.find({ done: true });
+      setTodos(todosTodo);
+      setCompletedCount(doneTodos.length);
       setIsLoading(false);
     }, 2000); // Delay by 2 second to allow db to initialise and give loading message a chance
     // TODO: Add Error Handling
@@ -86,8 +86,7 @@ function App() {
     }
     const id = Date.now();
     todoDocuments.insert({ id, todo, done: false });
-    const allDocuments = todoDocuments.find();
-    setTodos(allDocuments);
+    setTodos([...todos, { id, todo, done: false }]);
     setTodo('');
   };
 
