@@ -8,13 +8,11 @@
   - [x] Add as pre-commit hooks
   - [x] Test
 - [x] Install Tailwind 🍃
-  - [ ] Figure out the import error
 - [x] Build Todo list using react and temporary storage
 - [x] Add form validation
 - [x] Add ability to edit todo
-- [ ] Add ability to mark todo as done
+- [x] Add ability to mark todo as done
 - [x] Deploy to Netlify
-
-TODO: Uninstall Postcss
-TODO: Uninstall Tailwind
-TODO: Add in-memory storage, pref nosql
+- [x] Uninstall Postcss
+- [x] Uninstall Tailwind
+- [x] Add in-memory storage, pref nosql
