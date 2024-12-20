@@ -275,7 +275,13 @@ function App() {
           </ul>
         )}
       </div>
-      <div>You've completed {completedCount} todos</div>
+      <div>
+        {completedCount === 1 ? (
+          <p>Well done, you've completed your first todo!</p>
+        ) : (
+          <p>You've completed {completedCount} todos so far</p>
+        )}
+      </div>
     </div>
   );
 }
