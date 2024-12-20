@@ -11,13 +11,13 @@ function App() {
   }
 
   // state
-  const [todo, setTodo] = useState('');
-  const [editTodo, setEditTodo] = useState('');
+  const [todo, setTodo] = useState<string>('');
+  const [editTodo, setEditTodo] = useState<string>('');
   const [todos, setTodos] = useState<Todos[]>([]);
-  const [completedCount, setCompletedCount] = useState(0);
+  const [completedCount, setCompletedCount] = useState<number>(0);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
