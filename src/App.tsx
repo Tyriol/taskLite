@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+
+import Modal from './components/Modal/Modal.tsx';
 
 import { todoDocuments } from './database/lokidb';
 import './App.css';
@@ -30,42 +32,6 @@ function App() {
     // TODO: Add Error Handling
     return () => clearTimeout(timer);
   }, []);
-
-  // modal component
-  const ModalDialog = () => {
-    const dialogRef = useRef<HTMLDialogElement>(null);
-
-    const openModal = () => {
-      dialogRef.current?.showModal();
-    };
-
-    const closeModal = () => {
-      dialogRef.current?.close();
-    };
-
-    return (
-      <div>
-        <button onClick={openModal}>About the App</button>
-        <dialog ref={dialogRef}>
-          <h2>About TaskLite</h2>
-          <div>
-            <p>
-              Ever feel overwhelmed by a never ending todo list that you keep
-              adding to, but never seem able to complete?
-            </p>
-            <p>
-              That's why I created this todo list, that only allows you to add
-              your 3 most important tasks for the day. You can only add more
-              once you've ticked something off, so the most you'll ever have is
-              3!
-            </p>
-            <p>Get out there and get it done!</p>
-          </div>
-          <button onClick={closeModal}>Close</button>
-        </dialog>
-      </div>
-    );
-  };
 
   // capture input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,7 +118,7 @@ function App() {
     <div className="wrapper">
       <h1>TaskLite</h1>
       <h2>To The Point Todo's</h2>
-      <ModalDialog />
+      <Modal />
       {todos.length === 3 ? (
         <div className="enough-todos-text">
           I'd say that's enough for now...wouldn't you?
