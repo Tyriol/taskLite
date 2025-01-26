@@ -159,8 +159,15 @@ function App() {
                         type="text"
                         value={editTodo}
                         onChange={handleChange}
+                        onClick={e => e.stopPropagation()}
                       />
-                      <button type="button" onClick={() => handleEdit(td.id)}>
+                      <button
+                        type="button"
+                        onClick={e => {
+                          e.stopPropagation();
+                          handleEdit(td.id);
+                        }}
+                      >
                         Update
                       </button>
                     </>
@@ -169,7 +176,10 @@ function App() {
                       {td.todo}
                       <button
                         type="button"
-                        onClick={() => openEdit(td.id, td.todo)}
+                        onClick={e => {
+                          e.stopPropagation();
+                          openEdit(td.id, td.todo);
+                        }}
                       >
                         <svg
                           width="1rem"
@@ -213,7 +223,13 @@ function App() {
                           </g>
                         </svg>
                       </button>
-                      <button type="button" onClick={() => handleDelete(td.id)}>
+                      <button
+                        type="button"
+                        onClick={e => {
+                          e.stopPropagation();
+                          handleDelete(td.id);
+                        }}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           xmlnsXlink="http://www.w3.org/1999/xlink"
