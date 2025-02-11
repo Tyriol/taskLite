@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import Modal from './components/Modal/Modal.tsx';
 
 import { todoDocuments } from './database/lokidb';
+import { todosCompleteToday } from './utils/date.ts';
 import './App.css';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
     id: number;
     todo: string;
     done: boolean;
+    completedAt: number | null;
   }
 
   // state
@@ -17,6 +19,7 @@ function App() {
   const [editTodo, setEditTodo] = useState<string>('');
   const [todos, setTodos] = useState<Todos[]>([]);
   const [completedCount, setCompletedCount] = useState<number>(0);
+  const [todosCompletedToday, setTodosCompletedToday] = useState<number>(0);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -26,8 +29,10 @@ function App() {
     const timer = setTimeout(() => {
       const todosTodo = todoDocuments.find({ done: false });
       const doneTodos = todoDocuments.find({ done: true });
+      const completedToday = todosCompleteToday();
       setTodos(todosTodo);
       setCompletedCount(doneTodos.length);
+      setTodosCompletedToday(completedToday.length);
       setIsLoading(false);
     }, 2000);
     // TODO: Add Error Handling
@@ -50,9 +55,8 @@ function App() {
       return;
     }
     const id = Date.now();
-    console.log(id);
-    todoDocuments.insert({ id, todo, done: false });
-    setTodos([...todos, { id, todo, done: false }]);
+    todoDocuments.insert({ id, todo, done: false, completedAt: null });
+    setTodos([...todos, { id, todo, done: false, completedAt: null }]);
     setTodo('');
   };
 
@@ -60,8 +64,10 @@ function App() {
     const completedTodo = todoDocuments.findOne({ id });
     if (completedTodo) {
       completedTodo.done = true;
+      completedTodo.completedAt = Date.now();
       todoDocuments.update(completedTodo);
       setCompletedCount(completedCount + 1);
+      setTodosCompletedToday(todosCompletedToday + 1);
     }
     const todoToRemoveIndex = todos.findIndex(td => td.id === id);
     setTodos([
@@ -104,6 +110,7 @@ function App() {
       id: id,
       todo: editTodo,
       done: updatedTodos[todoToEditIndex].done,
+      completedAt: updatedTodos[todoToEditIndex].completedAt,
     };
     setTodos(updatedTodos);
     setEditTodo('');
@@ -257,7 +264,10 @@ function App() {
         {completedCount === 1 ? (
           <p>Well done, you've completed your first todo!</p>
         ) : (
-          <p>You've completed {completedCount} todos so far</p>
+          <>
+            <p>You've completed {todosCompletedToday} so far today</p>
+            <p>And {completedCount} in total!</p>
+          </>
         )}
       </div>
     </div>
@@ -267,3 +277,4 @@ function App() {
 export default App;
 
 // TODO: Split into components
+// TODO: Abstract Logic out
