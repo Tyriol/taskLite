@@ -22,18 +22,18 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    // Delay by 2 second to allow db to initialise and give loading message a chance
     const timer = setTimeout(() => {
       const todosTodo = todoDocuments.find({ done: false });
       const doneTodos = todoDocuments.find({ done: true });
       setTodos(todosTodo);
       setCompletedCount(doneTodos.length);
       setIsLoading(false);
-    }, 2000); // Delay by 2 second to allow db to initialise and give loading message a chance
+    }, 2000);
     // TODO: Add Error Handling
     return () => clearTimeout(timer);
   }, []);
 
-  // capture input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (editingId) {
       setEditTodo(e.target.value);
@@ -43,7 +43,6 @@ function App() {
     }
   };
 
-  // add todo to db and update todos state
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     if (!todo) {
@@ -51,12 +50,12 @@ function App() {
       return;
     }
     const id = Date.now();
+    console.log(id);
     todoDocuments.insert({ id, todo, done: false });
     setTodos([...todos, { id, todo, done: false }]);
     setTodo('');
   };
 
-  // mark todo as done
   const handleComplete = (id: number) => {
     const completedTodo = todoDocuments.findOne({ id });
     if (completedTodo) {
@@ -71,7 +70,6 @@ function App() {
     ]);
   };
 
-  // delete todo from list
   const handleDelete = (id: number) => {
     const todoToRemove = todoDocuments.findOne({ id });
     if (todoToRemove) {
@@ -84,13 +82,11 @@ function App() {
     ]);
   };
 
-  // handle edit initial open
   const openEdit = (id: number, todo: string) => {
     setEditingId(id);
     setEditTodo(todo);
   };
 
-  // edit a todo
   const handleEdit = (id: number) => {
     if (!editTodo) {
       setEditingId(null);
