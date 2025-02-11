@@ -4,6 +4,7 @@ interface Todo {
   id: number;
   todo: string;
   done: boolean;
+  completedAt: number | null;
 }
 
 let todoDocuments: Collection<Todo>;
