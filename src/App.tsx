@@ -163,6 +163,7 @@ function App() {
                         value={editTodo}
                         onChange={handleChange}
                         onClick={e => e.stopPropagation()}
+                        name="todo-input"
                       />
                       <button
                         type="button"
